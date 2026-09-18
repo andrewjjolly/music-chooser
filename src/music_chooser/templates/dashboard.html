@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Private listening ritual</p>
+    <h1>Choose five records worth your time.</h1>
+    <p class="lede">A local catalogue of Metacritic album metadata, shaped by what you actually listen to.</p>
+  </div>
+  <form method="post" action="/sync"><button class="button" type="submit">Refresh recent releases</button></form>
+</section>
+<div class="grid two">
+  <section class="panel">
+    <div class="panel-heading"><h2>This week's set</h2><a href="/chooser">Open chooser →</a></div>
+    {% if week and week.albums %}
+      <ol class="album-list compact">{% for album in week.albums %}<li><span class="rank">{{ album.position }}</span><span><strong>{{ album.title }}</strong><small>{{ album.artist }} · {{ album.bucket_key|replace('_', ' ') }}</small></span>{% if album.metascore is not none %}<b class="score">{{ album.metascore }}</b>{% endif %}</li>{% endfor %}</ol>
+    {% else %}<p class="muted">No set yet. Start the five-step chooser when you are ready.</p>{% endif %}
+  </section>
+  <section class="panel">
+    <div class="panel-heading"><h2>Latest local data</h2><a href="/albums">Browse all →</a></div>
+    {% if latest_sync %}<p class="muted">Last sync: {{ latest_sync.finished_at or latest_sync.started_at }} · {{ latest_sync.status }}</p>{% else %}<p class="muted">No Metacritic data has been imported yet.</p>{% endif %}
+    <ul class="album-list compact">{% for album in albums[:5] %}<li><span><strong>{{ album.title }}</strong><small>{{ album.artist }} · {{ album.release_date or 'Release date unknown' }}</small></span>{% if album.metascore is not none %}<b class="score">{{ album.metascore }}</b>{% endif %}</li>{% endfor %}</ul>
+  </section>
+</div>
+{% endblock %}

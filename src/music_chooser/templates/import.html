@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">Controlled ingestion</p><h1>Import Metacritic pages</h1></div></div>
+<section class="panel narrow"><p>Paste one or more explicit Metacritic URLs, one per line. The app imports only those pages, spaces requests apart, and stores parsed metadata rather than page HTML.</p><form method="post"><textarea name="urls" rows="7" placeholder="https://www.metacritic.com/browse/albums/score/metascore/year/all
+https://www.metacritic.com/music/example/example"></textarea><button class="button" type="submit">Import these URLs</button></form>{% if result %}<div class="result {{ result.status }}"><strong>{{ result.status|capitalize }}</strong> · {{ result.albums }} albums · {{ result.request_count }} requests{% if result.errors %}<ul>{% for error in result.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}</div>{% endif %}</section>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">Local configuration</p><h1>Settings</h1></div></div>
+<section class="panel narrow"><dl class="settings"><dt>Database</dt><dd>{{ settings.db_path }}</dd><dt>Timezone</dt><dd>{{ settings.timezone_name }}</dd><dt>Refresh interval</dt><dd>{{ settings.refresh_hours }} hours</dd><dt>Request delay</dt><dd>{{ settings.request_delay_seconds }} seconds</dd><dt>Automatic startup sync</dt><dd>{{ 'Enabled' if settings.auto_sync else 'Disabled' }}</dd></dl>{% if latest_sync %}<hr><h2>Latest sync</h2><p>{{ latest_sync.status }} · {{ latest_sync.request_count }} requests · {{ latest_sync.finished_at or latest_sync.started_at }}</p>{% if latest_sync.error_detail %}<pre class="error-text">{{ latest_sync.error_detail }}</pre>{% endif %}{% endif %}</section>
+{% endblock %}

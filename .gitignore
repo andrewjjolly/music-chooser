@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.music-chooser/
+music_chooser.db
+reports/
+*.egg-info/
+.coverage
